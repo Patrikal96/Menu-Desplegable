@@ -1,0 +1,154 @@
+@import url("https://fonts.googleapis.com/css2?family=Bad+Script&family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    background: #3d4152;
+}
+
+.navigation {
+    position: fixed; //fijo en la parte izquierda
+    inset: 20px 0 20px 20px; //sobre el posicionamiento
+    width: 75px;
+    background: #fff;
+    transition: 0.5s;
+    display: flex;
+    justify-content: center;
+    align-items: center; //centro segun las propiedades
+    border-radius: 15px;
+    .menuToggle {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 60px;
+        cursor: pointer; //aparezca la manita
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 0 23px;
+        &::before {
+            content: "";
+            position: absolute;
+            width: 30px;
+            height: 2px;
+            background: #333;
+            transform: translateY(-8px);
+            transition: 0.5s;
+        }
+
+        &::after {
+            content: "";
+            position: absolute;
+            width: 30px;
+            height: 2px;
+            background: #333;
+            transform: translateY(8px);
+            transition: 0.5s;
+            box-shadow: 0 -8px 0 #333; //0 Para que no venga ese difuminado para esas 3 rallitas
+        }
+    }
+
+    ul {
+        display: flex;
+        flex-direction: column;
+        gap: 10px; //separación entre varios elementos
+        width: 100%;
+
+        li {
+            list-style: none; //para quitar las puntos de la lista no ordenada
+            position: relative;
+            width: 100%;
+            height: 60px;
+            padding: 0.5s;
+            &.active {
+                transform: translateX(30px);
+                a {
+                    .icon {
+                        color: #fff;
+                        background: var(--clr);
+                        &::before {
+                            opacity: 0.5;
+                        }
+                    }
+                    .text {
+                        color: var(--clr);
+                    }
+                }
+            }
+            a {
+                position: relative;
+                display: flex;
+                align-items: center;
+                justify-content: flex-start; //de izquierda a la derecha
+                text-align: center;
+                text-decoration: none;
+
+                //ESTILOS DE ICON
+                .icon {
+                    position: relative;
+                    display: block; //para poder darle border-radius
+                    min-width: 55px;
+                    height: 55px;
+                    line-height: 60px; //centrar el icon
+                    transition: 0.5s;
+                    border-radius: 10px; //borde la caja
+                    font-size: 1.75em; //aumento del tamaño del icon
+                    color: #222;
+                    &::before {
+                        //se muestre antes de
+                        content: ""; //obligatorio ponerlo siempre
+                        position: absolute;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        background: var(--clr); //darle el color dado del html
+                        filter: blur(8px); //difuminar el color dado
+                        opacity: 0;
+                        transition: 0.5s;
+                    }
+                }
+                .text {
+                    position: relative;
+                    padding: 0 15px;
+                    height: 60px;
+                    display: flex; //que sea flexible
+                    align-items: center; //de arriba a bajo
+                    color: #333;
+                    opacity: 0;
+                    visibility: hidden; //tb lo ocultamos
+                    transition: 0.5s; //todo esto ocurra con esta transición
+                }
+            }
+        }
+    }
+    //decorador que hemos creado
+    &.open .menuToggle::before {
+        transform: translateY(0px) rotate(80deg); //añadir una rotación
+    }
+    &.open {
+        width: 250px;
+    }
+    &.open {
+        width: 250px;
+    }
+    &.open .menuToggle::after {
+        //para formar una X cuando se despliegua
+        transform: translateY(0px) rotate(-45deg);
+        box-shadow: 0 0 0 #333;
+    }
+    //activar los elementos
+    &.open ul li.active {
+        transform: translateX(10px); //se translada hacia la izquierda, alineado con los demas icon
+    }
+
+    &.open ul li a .text {
+        opacity: 1;
+        visibility: visible;
+        transition: 0.5s;
+    }
+}
